@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2</title>
+</head>
+<body>
+    <label for="input">Enter the string</label>
+    <input id="input" type="text">
+    <br><br>
+    <p id="output"></p>
+    <script>
+        const inputElement = document.getElementById("input");
+        const outputElement = document.getElementById("output");
+        inputElement.addEventListener("input", function() {
+            const inputValue = inputElement.value;
+            const reversedValue = inputValue.split('').reverse().join('');
+            outputElement.textContent = reversedValue;
+        });
+    </script>
+</body>
+</html>

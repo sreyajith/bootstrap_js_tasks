@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4</title>
+</head>
+
+<body>
+    <center>
+        <button id="showDate">Show Date</button><br>
+        <p id="result-date"></p><br>
+        <button id="showTime">Show Time</button><br>
+        <p id="result-time"></p>
+    </center>
+    <script>
+        function formatDate(date) {
+            const day = date.getDate();
+            const month = date.toLocaleString('default', { month: 'long' });
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        document.getElementById("showDate").addEventListener("click", function () {
+            const currentDate = new Date();
+            const formattedDate = formatDate(currentDate);
+            document.getElementById("result-date").textContent = ` ${formattedDate}`;
+        });
+
+        document.getElementById("showTime").addEventListener("click", function () {
+            const currentTime = new Date();
+            const formattedTime = currentTime.toString();
+            document.getElementById("result-time").textContent = `${formattedTime}`;
+        });
+    </script>
+</body>
+
+</html>

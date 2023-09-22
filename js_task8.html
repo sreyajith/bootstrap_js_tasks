@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 8</title>
+    <style>
+        body {
+            background-image: linear-gradient(to bottom, yellow 30%, pink 70%);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        form {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        p.error {
+            color: red;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        button[type="submit"] {
+        background-color: red; 
+        color: white;
+        border: 2px solid black;
+        border-radius: 30px;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <center>
+        <h2 style="color: blue;">Registration form</h2>
+        <form id="registrationForm">
+            <table>
+                <tr>
+                    <td align="center"><b>First Name</b></td>
+                    <td><input type="text" style="width: 97%;" id="firstName" name="firstName"></td>
+                    <td><p class="error" id="firstNameError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Last Name</b></td>
+                    <td><input type="text" style="width: 97%;" id="lastName" name="lastName"></td>
+                    <td><p class="error" id="lastNameError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Email</b></td>
+                    <td><input type="email" style="width: 97%;" id="email" name="email"></td>
+                    <td><p class="error" id="emailError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Password</b></td>
+                    <td><input type="password" style="width: 97%;" id="password" name="password"></td>
+                    <td><p class="error" id="passwordError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Re-enter password</b></td>
+                    <td><input type="password" style="width: 97%;" id="rePassword"></td>
+                    <td><p class="error" id="rePasswordError"></p></td>
+                </tr>
+                <tr>
+                    <td  align="center"><b>Gender</b></td>
+                    <td colspan="2"><input type="radio" name="gender" value="Male"> Male<br>
+                        <input type="radio" name="gender" value="Female"> Female</td>
+                    <td><p class="error" id="genderError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Age</b></td>
+                    <td class="age"><input type="number" style="width: 97%;" id="age" name="age"></td>
+                    <td><p class="error" id="ageError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Phone Number</b></td>
+                    <td><input type="tel" style="width: 97%;" id="phoneNumber" name="phoneNumber"></td>
+                    <td><p class="error" id="phoneNumberError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Address</b></td>
+                    <td>
+                        <textarea style="width: 97%;" id="address" name="address"></textarea>
+                    </td>
+                    <td><p class="error" id="addressError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>State</b></td>
+                    <td><input type="text" style="width: 97%;" id="state" name="state"></td>
+                    <td><p class="error" id="stateError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Country</b></td>
+                    <td>
+                        <select id="country" name="country">
+                            <option>Choose your country</option>
+                            <option>India</option>
+                            <option>Japan</option>
+                            <option>China</option>
+                            <option>USA</option>
+                        </select>
+                    </td>
+                    <td><p class="error" id="countryError"></p></td>
+                </tr>
+                <tr>
+                    <td align="center"><b>Languages known</b></td>
+                    <td>
+                        <input type="checkbox" id="english" name="languages" value="English">English
+                        <input type="checkbox" id="kannada" name="languages" value="Kannada">Kannada
+                        <input type="checkbox" id="hindi" name="languages" value="Hindi">Hindi
+                        <input type="checkbox" id="telugu" name="languages" value="Telugu">Telugu
+                    </td>
+                    <td><p class="error" id="languagesError"></p></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="checkbox" id="declaration" name="declaration">Hereby I declare all the given details are true</td>
+                    <td><p class="error" id="declarationError"></p></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="right">Log in to <a href="https://ethnus.com/">Ethnus</a> website</td>
+                </tr>
+            </table>
+            <br>
+            <button type="submit">Register</button>
+        </form>
+    </center>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#registrationForm").submit(function (event) {
+                resetErrors();
+
+                const firstName = $("#firstName").val().trim();
+                const lastName = $("#lastName").val().trim();
+                const email = $("#email").val().trim();
+                const password = $("#password").val();
+                const rePassword = $("#rePassword").val();
+                const gender = $("input[name='gender']:checked").val();
+                const age = $("#age").val().trim();
+                const phoneNumber = $("#phoneNumber").val().trim();
+                const address = $("#address").val().trim();
+                const state = $("#state").val().trim();
+                const country = $("#country").val();
+                const languages = $("input[name='languages']:checked").length > 0;
+                const declaration = $("#declaration").prop("checked");
+
+                let hasError = false;
+
+                if (firstName.length < 4) {
+                    displayError("firstNameError", "Poor");
+                    hasError = true;
+                }
+
+                if (lastName.length < 4) {
+                    displayError("lastNameError", "Poor");
+                    hasError = true;
+                }
+
+                if (!isValidEmail(email)) {
+                    displayError("emailError", "Invalid email address");
+                    hasError = true;
+                }
+
+                if (password.length < 8) {
+                    displayError("passwordError", "Poor");
+                    hasError = true;
+                }
+
+                if (password !== rePassword) {
+                    displayError("rePasswordError", "Passwords do not match");
+                    hasError = true;
+                }
+
+                if (!gender) {
+                    displayError("genderError", "Select an option");
+                    hasError = true;
+                }
+
+                if (!age) {
+                    displayError("ageError", "Enter your age");
+                    hasError = true;
+                }
+
+                if (phoneNumber.length < 10) {
+                    displayError("phoneNumberError", "Invalid phone number");
+                    hasError = true;
+                }
+
+                if (!address) {
+                    displayError("addressError", "Enter your address");
+                    hasError = true;
+                }
+
+                if (!state) {
+                    displayError("stateError", "Enter your state");
+                    hasError = true;
+                }
+
+                if (country === "Choose your country") {
+                    displayError("countryError", "Select your country");
+                    hasError = true;
+                }
+
+                if (!languages) {
+                    displayError("languagesError", "Select at least one language");
+                    hasError = true;
+                }
+
+                if (!declaration) {
+                    displayError("declarationError", "Accept the conditions");
+                    hasError = true;
+                }
+
+                if (hasError) {
+                    event.preventDefault();
+                }
+            });
+
+            function displayError(elementId, errorMessage) {
+                const errorElement = $("#" + elementId);
+                errorElement.text(errorMessage);
+            }
+
+            function resetErrors() {
+                const errorElements = $(".error");
+                errorElements.text("");
+            }
+
+            function isValidEmail(email) {
+                const re = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                return re.test(email);
+            }
+        });
+    </script>
+</body>
+</html>

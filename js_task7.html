@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Animation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden; 
+        }
+        .buttons-container {
+            margin-top: 20px;
+            position: relative;
+        }
+        #animated-image {
+            position: absolute;
+            transition: transform 1s linear;
+            left: 0; 
+            top: -200px; 
+            z-index: 1; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div id="imageContainer" class="position-relative">
+            <img src="train.jpg" id="animated-image" alt="Train" width="200">
+        </div>
+        <div class="buttons-container text-center">
+            <button id="startButton" class="btn btn-primary">Start</button>
+            <button id="stopButton" class="btn btn-danger">Stop</button>
+        </div>
+    </div>
+
+    <script>
+        let animationInterval;
+        const animatedImage = document.getElementById("animated-image");
+        const startButton = document.getElementById("startButton");
+        const stopButton = document.getElementById("stopButton");
+
+        startButton.addEventListener("click", startAnimation);
+        stopButton.addEventListener("click", stopAnimation);
+
+        function startAnimation() {
+            clearInterval(animationInterval);
+            animationInterval = setInterval(moveImage, 50); 
+        }
+
+        function moveImage() {
+            const currentPosition = parseInt(getComputedStyle(animatedImage).left) || 0;
+            animatedImage.style.left = currentPosition + 2 + "px"; 
+        }
+
+        function stopAnimation() {
+            clearInterval(animationInterval);
+        }
+    </script>
+</body>
+</html>
+
+
